@@ -25,8 +25,7 @@ def get_Stock():
     response.headers['Content-Type'] = 'image/png'
     response.headers['Content-Disposition'] = 'inline; filename=plot.png'
     
-    return render_templat('stock.html',
-            response )
+    return response
 
 
                     
