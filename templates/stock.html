@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ticker}} Stock</title>
+    <link href="{{ url_for('static', filename='static/style.css') }}" rel="stylesheet" />
+    </head>
+    
+    <body>
+        <h1> {{ticker}} Stock</h1>
+            <p>{{ticker}}<p>
+        <h2> {{ response }} <h2>
+        <form action="/stock">
+            <input type="text" name="ticker" id="ticker" placeholder="Enter a valid stock ticker" />
+            <button type="submit">Submit</button>
+        </form>
+    </body>
+    
+    </html>

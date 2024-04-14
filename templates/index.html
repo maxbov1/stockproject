@@ -1,0 +1,29 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Get Stock Recap</title>
+    <link href="{{ url_for('static', filename='style.css') }}" rel="stylesheet" />
+</head>
+
+<body>
+    <h1>Get Stock Recap</h1>
+    <form action="/stock">
+        <input type="text" name="ticker" id="ticker" placeholder="Enter a valid stock ticker" />
+        <button type="submit">Submit</button>
+        <label for="periods">Choose a period:</label>
+        <select name="periods" id="periods">
+        <option value="1d">1d</option>
+        <option value="5d">5d<option>
+        <option value="1wk">1wk</option>
+        <option value="1mo">1mo</option>
+        <option value="3mo">3mo</option>
+        </select>   
+    </form>
+</body>
+
+</html>
