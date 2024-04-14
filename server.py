@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 from flask import Flask, make_response,  render_template, request
+=======
+from flask import Flask, make_response, render_template, request
+>>>>>>> d5b97c03d3e04886fbaf1fcb3d413cbb6dd29e58
 import StockGrapher 
 from waitress import serve
 
@@ -25,8 +29,7 @@ def get_Stock():
     response.headers['Content-Type'] = 'image/png'
     response.headers['Content-Disposition'] = 'inline; filename=plot.png'
     
-    return render_templat('stock.html',
-            response )
+    return response
 
 
                     
