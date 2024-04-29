@@ -1,19 +1,12 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ticker}} Stock</title>
+    <title>{{ ticker }} Stock</title>
     <link href="{{ url_for('static', filename='style.css') }}" rel="stylesheet" />
 </head>
-    
 <body>
-        <h1> {{ticker}} Stock</h1>
-            <p>{{ticker}}<p>
-        {% if image_url %}
-        <img src="{{ image_url }}" alt="Stock Graph">
-        {% endif %}
+    <img src="data:image/png;base64,{{ image_url }}">
 </body>
-    
-</html>
+</html>          
