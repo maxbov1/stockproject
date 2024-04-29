@@ -9,11 +9,16 @@
 </head>
     
 <body>
-        <h1> {{ticker}} Stock</h1>
-            <p>{{ticker}}<p>
-        {% if image_url %}
+     
+    <h1>{{ ticker }} Stock</h1>
+    
+    {% if image_url %}
         <img src="{{ image_url }}" alt="Stock Graph">
-        {% endif %}
+    {% else %}
+        <p>No stock graph available.</p>
+    {% endif %}
+
+
 </body>
     
 </html>
