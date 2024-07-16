@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ ticker }} Stock</title>
+    <link href="{{ url_for('static', filename='style.css') }}" rel="stylesheet" />
+</head>
+<body>
+    <h1>{{ ticker }} Stock</h1>
+        <img src="{{ url_for('get_image', ticker=ticker, period=period) }}" alt="Stock Plot">
+        <h1>{{ ticker }} upgrade/downgrade recommendations</h1>
+        {% for html_table in result %}
+            {{ html_table | safe }} {# Use the safe filter to render HTML #}
+            <hr> {# Optional: Add a horizontal line between tables for separation #}
+        {% endfor %}
+</body>
+</html>          

@@ -13,6 +13,16 @@ from matplotlib.figure import Figure
 import io
 from flask import Response
 
+def get_stats(ticker):
+    Ticker = yf.Ticker(ticker)
+    Ticker.recommendations_summary
+    Ticker.recommendations
+    Ticker.recommendations_summary
+    df = pd.DataFrame(Ticker.upgrades_downgrades).head(10)
+    df = df.drop(columns=
+    result = df.to_html()
+    return result
+
 
 def IsValid(ticks):
   ValidFrame = pd.Dataframe("nasdaq-listed.csv")
@@ -68,7 +78,13 @@ def CreateVis(stockdict):
         ax.set_xlabel('Dates')
         ax.set_ylabel('Close Price')
         plt.title(ticker)
-
+def save_plot_to_memory(stockdict):
+        buffer = io.BytesIO()  # Create a buffer to hold the PNG image
+        CreateVis(stockdict)  # Generate the plot
+        plt.savefig(buffer, format='png')  # Save the plot to the buffer in PNG format
+        plt.close()  # Close the plot to release memory
+        buffer.seek(0)  # Reset the buffer position to the beginning
+        return buffer
 def main():    
     tickers, period  = GetInput(tickers, period)
     data = FetchData(tickers, period)

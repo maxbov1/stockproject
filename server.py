@@ -1,4 +1,4 @@
-
+import matplotlib.pyplot as plt
 from flask import Flask, make_response, render_template, request, jsonify, redirect, url_for
 from PIL import Image
 import StockGrapher 
@@ -12,37 +12,47 @@ app = Flask(__name__)
 @app.route('/index')
 def index():
     return render_template('index.html') 
-@app.route('/stock', methods=['GET', 'POST'])
-def get_Stock():
-    image_url = None
-    if request.method == 'POST':
-        ticker = request.form['ticker']
-        period = request.form['period']
-        # Redirect to the /stockimages route with the selected ticker and period
-        return redirect(url_for('stockimages.html', ticker=ticker, period=period))
-    return render_template('stock.html', image_url=image_url)
-    
 
-@app.route('/stockimages')
-def get_image():
+
+@app.route('/stock', methods=['GET','POST'])
+def get_Stock():
+
     tickers = request.args.get('ticker')
     per = request.args.get('periods')
     tickers, period  = StockGrapher.GetInput(tickers, per)
+    for t in tickers:
+        stats = StockGrapher.get_stats(t)
+        result = []
+        result.append(stats)
+    
+    #ticker = request.form['ticker']
+    #period = request.form['period']
+    # Redirect to the /stockimages route with the selected ticker and period
+    return render_template('statsimages.html', ticker=tickers ,period=period, result=result)
+
+    
+
+@app.route('/statsimages')
+def get_image():
+    tickers = request.args.get('ticker')
+    per = request.args.get('period')
+    tickers, period  = StockGrapher.GetInput(tickers, per)
     data = StockGrapher.FetchData(tickers, period)
     clean = StockGrapher.CleanData(data)
-    fig = StockGrapher.CreateVis(clean)
-    plot_buffer = BytesIO()
-    fig.savefig(plot_buffer, format='png')
-    plt.close(fig)
+    plot_buffer = StockGrapher.save_plot_to_memory(clean)
+    plt.close()
+    response = make_response(plot_buffer.getvalue())
 
-    # Encode the plot as base64
-    plot_encoded = base64.b64encode(plot_buffer.getvalue()).decode('utf-8')
-
-    return render_template('stockimages.html', image_url=plot_encoded, ticker=tickers)
+    # Set the appropriate content type and headers
+    response.headers['Content-Type'] = 'image/png'
+    response.headers['Content-Disposition'] = 'inline; filename=plot.png'
+    
+    return response
 
     
 
                     
 
 if __name__ == "__main__":
-    serve(app, host='0.0.0.0', port=8000)
+    app.run(debug=True, use_reloader=False, port=8000)
+    # host='0.0.0.0', port=8000
