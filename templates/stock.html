@@ -12,11 +12,8 @@
      
     <h1>{{ ticker }} Stock</h1>
     
-    {% if image_url %}
-        <img src="{{ image_url }}" alt="Stock Graph">
-    {% else %}
-        <p>No stock graph available.</p>
-    {% endif %}
+    
+         <img src="{{ url_for('get_image', ticker=ticker, period=period) }}" alt="Stock Plot">
 
 
 </body>
