@@ -19,7 +19,8 @@ def get_stats(ticker):
     Ticker.recommendations
     Ticker.recommendations_summary
     df = pd.DataFrame(Ticker.upgrades_downgrades).head(10)
-    df = df.drop(columns=
+    
+    #df = df.drop(columns=
     result = df.to_html()
     return result
 
