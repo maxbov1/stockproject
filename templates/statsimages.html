@@ -3,19 +3,95 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ ticker }} Stock</title>
-    <link href="{{ url_for('static', filename='style.css') }}" rel="stylesheet" />
+    <title>Stock Statistics</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+    <h1 class="title">{{ ticker[0] }} Stock</h1>
+    <style>
+        .title {
+    font-size: 36px; /* Adjust the font size as needed */
+    font-weight: bold;
+    text-align: center;
+    padding: 10px 20px; /* Space around the text */
+    border: 3px solid black; /* Black border around the title */
+    border-radius: 8px; /* Optional: rounded corners */
+    background-color: white; /* Optional: background color for the title */
+}
+        body {
+            font-family: 'Montserrat', sans-serif; /* Sets a readable font for the page */
+            margin: 20px; /* Adds margin around the whole page */
+            background-color: #f4f4f4; /* Light gray background color */
+        }
+
+        h1 {
+            text-align: center; /* Center-aligns the main header */
+            color: #333; /* Darker color for the header text */
+        }
+
+        .table-container {
+            margin-bottom: 40px; /* Increased space between tables */
+            padding: 20px; /* Adds padding around each table container */
+            background-color: #fff; /* White background for better contrast */
+            border-radius: 8px; /* Rounds the corners of the table container */
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Adds a subtle shadow for depth */
+        }
+
+        table {
+            width: 100%;
+            border-collapse: separate; /* Ensures there’s spacing between borders */
+            border-spacing: 0 15px; /* Adds vertical spacing between rows */
+            margin-bottom: 20px; /* Adds margin below each table */
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 12px; /* Increases padding inside table cells */
+            text-align: left;
+        }
+
+        th {
+            background-color: #f2f2f2;
+            color: #333; /* Darker color for header text */
+        }
+
+        td {
+            background-color: #fff; /* Ensures table cells have a white background */
+            color: #555; /* Slightly lighter color for table cell text */
+        }
+
+        .table-container h2 {
+            margin-top: 0; /* Removes top margin from section headings */
+            margin-bottom: 20px; /* Adds space below the section headings */
+            color: #444; /* Slightly lighter color for section headings */
+        }
+         h1 {
+        text-align: center;
+        margin-bottom: 20px;
+    }
+    .image-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+        height: 100%;
+    }
+  
+    .stock-image {
+        width: 80%;
+        max-width: 1200px;
+        border: 5px solid black;
+    }
+    </style>
 </head>
 <body>
-    <h1>{{ ticker }} Stock</h1>
-
         {% if image_url %}
-            <img src="{{ image_url }}" alt="Stock Graph">
+            <img src="{{ image_url}}" alt="Stock Plot">
         {% else %}
-            <p>No stock graph available.</p>
+            <p></p>
         {% endif %}
-        <img src="{{ url_for('get_image', ticker=ticker, period=period) }}" alt="Stock Plot">
-        <h1>{{ ticker }} upgrade/downgrade recommendations</h1>
+        <div class="image-container">
+            <img src="{{ url_for('get_image', ticker=ticker, period=period) }}" alt="Stock Plot" style="width: 800px; b        order: 5px solid black;">
+        </div>
+            <h1>{{ ticker[0] }} upgrade/downgrade recommendations</h1>
         {% for html_table in result %}
             {{ html_table | safe }} {# Use the safe filter to render HTML #}
             <hr> {# Optional: Add a horizontal line between tables for separation #}
